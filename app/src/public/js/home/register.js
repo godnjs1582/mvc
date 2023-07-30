@@ -10,11 +10,16 @@ registerBtn.addEventListener("click",register)
 
 function register(e){
     e.preventDefault();
+    if(!id.value){
+        alert("아이디를 입력해주십시오")
+    }
+    if(psword!==confirmPwsord){
+        alert("비밀번호가 일치하지 않습니다")
+    }
     const req={
         id:id.value,
         name:name.value,
         psword:psword.value,
-        confirmPwsord:confirmPwsord.value
     }
     fetch("/register",{
         method:"POST",
