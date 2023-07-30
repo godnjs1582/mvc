@@ -1,13 +1,19 @@
 "use strict";
-class UserStorage{
-    static #users = {
-        id:["woorimIT","나개발","김팀장"],
-        psword:["1234","1234","123456"],
-        name:["우리밋","나개발","김승민"]
-    };
-    // input 'id', 'name' => ...fields => fields = ['id','name']
-    // output {id: this.#users.id, psword: this.#users.password }
 
+const fs=require("fs").promises;
+
+class UserStorage{
+
+    static #getUserInfo(data,id){
+        const users = JSON.parse(data);
+        const idx = users.id.indexOf(id);
+        const usersKeys = Object.keys(users); //[id,psword,name]
+        const userInfo = usersKeys.reduce((acc,cur)=>{
+        acc[cur]=users[cur][idx];
+        return acc
+        },{})
+        return userInfo
+    }
 
     static getUsers(...fields){
         const users = this.#users;
@@ -22,15 +28,14 @@ class UserStorage{
     }
 
     static getUserInfo(id){
-        const users = this.#users;
-        const idx = users.id.indexOf(id);
-        const usersKeys = Object.keys(users); //[id,psword,name]
-        const userInfo = usersKeys.reduce((acc,cur)=>{
-            acc[cur]=users[cur][idx];
-            return acc
-        },{})
-        return userInfo
+        fs.readFile("./src/databases/users.json").then(
+            (data) =>{
+               return this.#getUserInfo(data,id);
+            }
+        ).catch(console.err)
     }
+
+
 
     static save(userInfo){
         const users = this.#users;
