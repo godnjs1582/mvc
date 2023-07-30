@@ -8,14 +8,14 @@ const output={
         res.render("home/index");
     },
     login : (req,res)=>{
-        res.render("home/login")
+        res.render("home/login");
+    },
+    register:(req,res)=>{
+        res.render("home/register");
     }
 }
 
-// const users={
-//     id:["woorimIT","나개발","김팀장"],
-//     psword:["1234","1234","123456"]
-// }
+
 
 
 const process ={
@@ -24,7 +24,8 @@ const process ={
         const response = user.login();
         console.log(response)
         return res.json(response);
-    }
+    },
+
 }
 
 module.exports={
