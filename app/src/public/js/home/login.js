@@ -4,7 +4,8 @@ const id = document.querySelector("#id");
 const pwsord = document.querySelector("#psword");
 const loginBtn =document.querySelector("button");
 
-function login(){
+function login(e){
+    e.preventDefault()
     const req={
         id:id.value,
         psword:psword.value
